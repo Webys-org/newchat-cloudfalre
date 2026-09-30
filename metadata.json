@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix chatze",
+  "description": "Imported from GitHub: Webys-org/chatze",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
