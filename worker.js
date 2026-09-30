@@ -207,13 +207,21 @@ async function verifyFederationRequest(rawBody, timestamp, signature) {
 
 export default {
   async fetch(request, env, ctx) {
+    const url = new URL(request.url)
+    const pathname = url.pathname
+
+    // 0. Serve static assets directly from public/ if bound
+    if (env.ASSETS && !pathname.startsWith('/api/')) {
+      try {
+        const assetRes = await env.ASSETS.fetch(request)
+        if (assetRes && assetRes.status !== 404) return assetRes
+      } catch {}
+    }
+
     if (env.DB) {
       globalThis.env = env
       await ensureD1Tables(env.DB)
     }
-
-    const url = new URL(request.url)
-    const pathname = url.pathname
 
     // 1. Health & Discovery (/api/health)
     if (pathname === '/api/health') {

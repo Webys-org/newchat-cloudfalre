@@ -7,7 +7,7 @@ import { profiles } from '@/lib/db/schema'
 export async function POST(request: Request) {
   const session = await auth.api.getSession({ headers: await headers() })
   if (!session?.user) return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
-  const body = await request.json().catch(() => null)
+  const body = (await request.json().catch(() => null)) as any
   const username = typeof body?.username === 'string' ? body.username.toLowerCase().trim() : ''
   const displayName = typeof body?.displayName === 'string' ? body.displayName.trim() : ''
   if (!/^[a-z0-9_]{3,32}$/.test(username) || !displayName || displayName.length > 80) return NextResponse.json({ error: 'Choose a valid username and display name.' }, { status: 400 })

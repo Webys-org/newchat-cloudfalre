@@ -17,7 +17,7 @@ export async function GET() {
 export async function POST(request: Request) {
   const session = await auth.api.getSession({ headers: await headers() })
   if (!session?.user) return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
-  const body = await request.json().catch(() => null)
+  const body = (await request.json().catch(() => null)) as any
   if (!body?.endpoint || !body?.keys?.p256dh || !body?.keys?.auth) return NextResponse.json({ error: 'Invalid subscription' }, { status: 400 })
   await db.insert(pushSubscriptions).values({ id: randomUUID(), userId: session.user.id, endpoint: body.endpoint, p256dh: body.keys.p256dh, auth: body.keys.auth }).onConflictDoUpdate({ target: pushSubscriptions.endpoint, set: { userId: session.user.id, p256dh: body.keys.p256dh, auth: body.keys.auth } })
   return NextResponse.json({ ok: true })
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
 export async function DELETE(request: Request) {
   const session = await auth.api.getSession({ headers: await headers() })
   if (!session?.user) return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
-  const body = await request.json().catch(() => null)
+  const body = (await request.json().catch(() => null)) as any
   if (typeof body?.endpoint !== 'string') return NextResponse.json({ error: 'Invalid endpoint' }, { status: 400 })
   await db.delete(pushSubscriptions).where(and(eq(pushSubscriptions.userId, session.user.id), eq(pushSubscriptions.endpoint, body.endpoint)))
   return NextResponse.json({ ok: true })

@@ -20,7 +20,7 @@ export default function SetupPage() {
     // Check if instance is already configured
     fetch('/api/setup')
       .then((r) => r.json())
-      .then((data) => {
+      .then((data: any) => {
         if (data.initialized) {
           router.push('/sign-in')
         } else {
@@ -62,7 +62,7 @@ export default function SetupPage() {
         }),
       })
 
-      const data = await res.json()
+      const data = (await res.json()) as any
       if (!res.ok) {
         setError(data.error ?? 'Setup failed. Please review your details.')
         setLoading(false)

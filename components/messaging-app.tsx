@@ -203,7 +203,7 @@ export function MessagingApp({
     try {
       const response = await fetch(`/api/messaging?conversationId=${encodeURIComponent(conversationId)}`, { cache: 'no-store' })
       if (!response.ok) return
-      const data = await response.json()
+      const data = (await response.json()) as any
       if (Array.isArray(data.messages)) {
         setMessages((prev) => {
           const incoming = data.messages as ChatMessage[]
@@ -239,7 +239,7 @@ export function MessagingApp({
     try {
       const response = await fetch('/api/messaging', { cache: 'no-store' })
       if (!response.ok) return
-      const data = await response.json()
+      const data = (await response.json()) as any
       if (Array.isArray(data.requests)) setRequests(data.requests)
       if (Array.isArray(data.conversations)) {
         setVisibleConversations((prev) => {
@@ -277,7 +277,7 @@ export function MessagingApp({
       await registration.update()
 
       const response = await fetch('/api/push/subscribe', { cache: 'no-store' })
-      const { publicKey } = await response.json()
+      const { publicKey } = (await response.json()) as any
       if (!publicKey) return
 
       let subscription: PushSubscription | null = null
@@ -644,7 +644,7 @@ export function MessagingApp({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ conversationId: activeConvId, body: bodyContent }),
       })
-      const data = await response.json()
+      const data = (await response.json()) as any
       if (response.ok && data.message) {
         setMessages((current) => {
           if (current.some((m) => m.id === data.message.id)) {
@@ -677,7 +677,7 @@ export function MessagingApp({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ handle: inputHandle }),
       })
-      const data = await response.json()
+      const data = (await response.json()) as any
       if (response.ok) {
         setNotice('Connected! Customer added to queue.')
         setHandle('')

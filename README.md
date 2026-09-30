@@ -1,6 +1,6 @@
 # Chatze (Nepal Edition) — Zero-Setup Cloudflare Edge Architecture
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Webys-org/nep-chat-v1)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Codexerone/chatze-nepalsgry)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
 [![Cloudflare D1](https://img.shields.io/badge/Database-Cloudflare%20D1%20(5GB%20Free)-orange.svg)](https://developers.cloudflare.com/d1/)
 [![Edge Network](https://img.shields.io/badge/PoP-Kathmandu%20(KTM)%20Edge-blue.svg)](https://www.cloudflare.com/network/)
@@ -11,7 +11,7 @@
 
 ## 🚀 1-Click Deploy to Cloudflare (The 60-Second Setup)
 
-1. Click the **[Deploy to Cloudflare](https://deploy.workers.cloudflare.com/?url=https://github.com/Webys-org/nep-chat-v1)** badge above.
+1. Click the **[Deploy to Cloudflare](https://deploy.workers.cloudflare.com/?url=https://github.com/Codexerone/chatze-nepalsgry)** badge above.
 2. Sign in to your Cloudflare account (100% Free).
 3. Cloudflare automatically reads `wrangler.jsonc`:
    - Provisions Cloudflare Native D1 database `chatze_db` (**5 GB Free SQLite Edge DB**).
@@ -118,8 +118,8 @@ This guarantees 100% of your daily request budget is reserved exclusively for do
 
 ```bash
 # Clone the repository
-git clone https://github.com/Webys-org/chatze.git
-cd chatze
+git clone https://github.com/Codexerone/chatze-nepalsgry.git
+cd chatze-nepalsgry
 
 # Install dependencies
 npm install

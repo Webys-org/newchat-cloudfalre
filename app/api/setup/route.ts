@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Instance is already initialized.' }, { status: 400 })
   }
 
-  const body = await request.json().catch(() => null)
+  const body = (await request.json().catch(() => null)) as any
   const businessName = typeof body?.businessName === 'string' && body.businessName.trim() ? body.businessName.trim() : 'Nepal Business Hub'
   const adminHandle = typeof body?.adminHandle === 'string' ? body.adminHandle.trim().replace(/^@/, '').toLowerCase() : 'admin'
   const displayName = typeof body?.displayName === 'string' && body.displayName.trim() ? body.displayName.trim() : businessName

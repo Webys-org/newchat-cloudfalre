@@ -254,7 +254,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const userId = await getUserId()
   if (!userId) return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
-  const body = await request.json().catch(() => null)
+  const body = (await request.json().catch(() => null)) as any
   const conversationId = typeof body?.conversationId === 'string' ? body.conversationId : ''
   const messageBody = typeof body?.body === 'string' ? body.body.trim() : ''
   if (!conversationId || !messageBody || messageBody.length > 4000) {
@@ -492,7 +492,7 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
   const userId = await getUserId()
   if (!userId) return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
-  const body = await request.json().catch(() => null)
+  const body = (await request.json().catch(() => null)) as any
   const messageId = typeof body?.messageId === 'string' ? body.messageId : ''
   if (!messageId) return NextResponse.json({ error: 'Invalid message' }, { status: 400 })
 
@@ -511,7 +511,7 @@ export async function PUT(request: Request) {
 export async function PATCH(request: Request) {
   const userId = await getUserId()
   if (!userId) return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
-  const body = await request.json().catch(() => null)
+  const body = (await request.json().catch(() => null)) as any
 
   // 1. Status toggle for high-volume inbox: 'active' | 'archived' | 'closed'
   if (typeof body?.conversationId === 'string' && typeof body?.status === 'string') {
@@ -554,7 +554,7 @@ export async function PATCH(request: Request) {
         body: payload,
         signal: AbortSignal.timeout(8000)
       })
-      const data = await response.json().catch(() => ({}))
+      const data = (await response.json().catch(() => ({}))) as any
       if (response.ok && data.requestId) {
         await db.insert(federationFriendships).values({
           id: randomUUID(),
@@ -597,7 +597,7 @@ export async function PATCH(request: Request) {
 export async function DELETE(request: Request) {
   const userId = await getUserId()
   if (!userId) return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
-  const { requestId, accept, clearAll } = await request.json().catch(() => ({}))
+  const { requestId, accept, clearAll } = (await request.json().catch(() => ({}))) as any
 
   if (clearAll === true) {
     const userConversations = await db.select({ id: conversations.id }).from(conversations).where(or(eq(conversations.userAId, userId), eq(conversations.userBId, userId)))
