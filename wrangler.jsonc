@@ -18,8 +18,7 @@
     ]
   },
   "vars": {
-    "NODE_ENV": "production",
-    "BETTER_AUTH_SECRET": "chatze-cloudflare-edge-secret-key-prod-np"
+    "NODE_ENV": "production"
   },
   "assets": {
     "directory": "public",
